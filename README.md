@@ -100,35 +100,14 @@ Convergence is measured by text similarity between successive cycle interpretati
 
 ### Option A — Install the MSI (End Users)
 
-1. Download the latest `.msi` from the [Releases](https://github.com/MushroomFleet/Fusion-Horizon-QwenORT-dev/releases) page.
+1. Download the latest `.msi` from the [Releases](https://github.com/MushroomFleet/Fusion-Horizon-QwenORT/releases) page.
 2. Run the installer.
 3. Launch **Fusion Horizon** from the Start Menu.
 4. On first launch, the Qwen 0.8B model (~850 MB) downloads automatically and is cached for all future use.
 5. Submit a query — the hermeneutic pipeline runs fully offline from this point.
 
-### Option B — Build From Source (Developers)
 
-```bash
-# Clone the repo
-git clone https://github.com/MushroomFleet/Fusion-Horizon-QwenORT-dev.git
-cd Fusion-Horizon-QwenORT-dev
-
-# Install dependencies
-npm install
-
-# Development — browser only (no Tauri shell)
-npm run dev
-
-# Development — with Tauri desktop shell
-npm run tauri:dev
-
-# Production MSI build
-npm run tauri:build
-```
-
-The MSI is output to `src-tauri/target/release/bundle/msi/`.
-
-### Option C — Use OpenRouter Instead of Local Model
+### Option B — Use OpenRouter Instead of Local Model
 
 1. Open Settings
 2. Change the LLM Provider dropdown to **"OpenRouter (Remote)"**
@@ -257,36 +236,6 @@ The QwenStatusBar shows real-time progress with file name and percentage during 
 
 ---
 
-## Project Structure
-
-```
-Fusion-Horizon-UI/
-+-- src/
-|   +-- core/
-|   |   +-- agents/          # Hermeneutic pipeline agents
-|   |   +-- api/             # ILLMProvider, OpenRouterProvider, QwenLocalProvider, providerRegistry
-|   |   +-- qwen/            # Web Worker, types, parseThinking
-|   |   +-- protocol/        # Agent message protocol
-|   |   +-- state/           # HermeneuticState, layers
-|   +-- components/
-|   |   +-- common/          # Reusable UI components
-|   |   +-- features/        # SettingsPanel, QwenStatusBar, QueryInput, etc.
-|   +-- hooks/               # useProvider, useOpenRouter, useOrchestrator, etc.
-|   +-- stores/              # Zustand stores (hermeneutic, UI, session, qwen)
-|   +-- config/              # System prompts, settings
-|   +-- types/               # TypeScript type definitions
-|   +-- lib/                 # Convergence, JSON parser, exporters
-+-- src-tauri/
-|   +-- src/                 # Rust entry point with HTTP plugin
-|   +-- capabilities/        # Tauri v2 permission grants
-|   +-- icons/               # App icons
-|   +-- tauri.conf.json      # App config, CSP, bundle settings
-+-- vite.config.ts           # Build config with WASM static copy
-+-- package.json
-```
-
----
-
 ## Troubleshooting
 
 **QwenStatusBar shows "Model error"**
@@ -306,28 +255,6 @@ The MSI is not code-signed in development builds. Click "More info -> Run anyway
 
 **OpenRouter API errors**
 Verify your API key is correct in Settings. Check your OpenRouter account for rate limits or billing issues.
-
----
-
-## Environment Variables (Optional)
-
-Environment variables provide fallback defaults. Users configure their settings via the UI.
-
-```bash
-cp env.example .env
-```
-
-| Variable | Default | Purpose |
-|---|---|---|
-| `VITE_OPENROUTER_API_KEY` | (empty) | Fallback API key |
-| `VITE_OPENROUTER_MODEL` | `x-ai/grok-4-fast:online` | Fallback model name |
-| `VITE_OPENROUTER_BASE_URL` | `https://openrouter.ai/api/v1` | API base URL |
-| `VITE_MIN_CYCLES` | `2` | Min hermeneutic cycles |
-| `VITE_MAX_CYCLES` | `5` | Max hermeneutic cycles |
-| `VITE_CONVERGENCE_THRESHOLD` | `0.85` | Convergence threshold |
-| `VITE_REQUEST_TIMEOUT` | `30000` | API timeout (ms) |
-| `VITE_MAX_RETRIES` | `3` | Retry count |
-| `VITE_RETRY_DELAY` | `1000` | Retry delay (ms) |
 
 ---
 
@@ -356,7 +283,7 @@ The bundled model weights are governed by the [Apache 2.0 licence](https://huggi
   title = {Fusion-Horizon-QwenORT: Hermeneutic interpretation engine with built-in local LLM inference},
   author = {Drift Johnson},
   year = {2026},
-  url = {https://github.com/MushroomFleet/Fusion-Horizon-QwenORT-dev},
+  url = {https://github.com/MushroomFleet/Fusion-Horizon-QwenORT},
   version = {1.0.0}
 }
 ```
